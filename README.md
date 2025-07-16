@@ -1,1 +1,1 @@
-# lamdisplugins
+[SITE](https://lamdis.github.io/lamdisplugins/)
