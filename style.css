@@ -1,22 +1,69 @@
 body {
-  font-family: 'Nunito', Arial, sans-serif;
   margin: 0;
+  font-family: 'Nunito', Arial, sans-serif;
   background: #181821;
   color: #f6f6f6;
 }
 header {
   background: #232340;
-  padding: 1.5em 0;
-  text-align: center;
+  padding: 1em 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.container {
+  max-width: 1050px;
+  margin: auto;
+  padding: 0 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 {
+  margin: 0;
+  color: #ffd700;
+  font-size: 2em;
 }
 nav a {
-  margin: 0 1em;
-  color: #ffd700;
+  margin-left: 1.5em;
+  color: #f6f6f6;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
+  transition: color 0.2s;
 }
 nav a:hover {
-  text-decoration: underline;
+  color: #ffd700;
+}
+.hero {
+  background: linear-gradient(120deg, #232340 70%, #ffd700 100%);
+  padding: 3em 0 2em 0;
+  text-align: center;
+}
+.hero h2 {
+  font-size: 2.3em;
+  margin-bottom: 0.3em;
+}
+.cta {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.7em 2em;
+  background: #ffd700;
+  color: #232340;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+}
+.cta:hover {
+  background: #ffe066;
+}
+.plugins {
+  padding: 3em 0 1em 0;
+}
+.plugins h2 {
+  text-align: center;
+  margin-bottom: 2em;
 }
 .plugin-list {
   display: flex;
@@ -27,10 +74,13 @@ nav a:hover {
 .plugin-card {
   background: #232340;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   padding: 1.5em;
   width: 270px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .plugin-card img {
   width: 100%;
@@ -39,38 +89,84 @@ nav a:hover {
   border-radius: 8px;
   margin-bottom: 1em;
 }
-.download-btn {
+.tag {
+  background: #ffd700;
+  color: #232340;
+  border-radius: 6px;
+  font-size: 0.85em;
+  padding: 0.2em 0.8em;
+  margin: 0.5em 0;
   display: inline-block;
+}
+.download-btn {
   margin-top: 1em;
-  padding: 0.7em 2em;
+  padding: 0.5em 1.5em;
   background: #ffd700;
   color: #232340;
   border: none;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
   transition: background 0.2s;
 }
 .download-btn:hover {
-  background: #ffea70;
+  background: #ffe066;
 }
-section {
+.faq, .contact {
+  max-width: 600px;
   margin: 3em auto;
-  max-width: 900px;
+}
+details {
+  background: #232340;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.contact input, .contact textarea {
+  border-radius: 6px;
+  border: none;
+  padding: 0.7em;
+  background: #232340;
+  color: #f6f6f6;
+  font-size: 1em;
+}
+.contact button {
+  width: 140px;
+  align-self: flex-end;
+  padding: 0.7em;
+  border-radius: 6px;
+  border: none;
+  background: #ffd700;
+  color: #232340;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.contact button:hover {
+  background: #ffe066;
 }
 footer {
-  text-align: center;
-  padding: 1.5em 0;
   background: #232340;
   color: #888;
+  text-align: center;
+  padding: 2em 0 1em 0;
   margin-top: 3em;
 }
 @media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .plugin-list {
     flex-direction: column;
     align-items: center;
   }
   .plugin-card {
-    width: 90%;
+    width: 97%;
   }
 }
