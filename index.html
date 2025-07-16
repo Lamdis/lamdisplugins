@@ -2,30 +2,59 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>À propos – Mon Site</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://raw.githubusercontent.com/Lamdis/lamdisplugins/refs/heads/main/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plugins Minecraft par Lamdis</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-    <img src="https://raw.githubusercontent.com/Lamdis/lamdisplugins/refs/heads/main/logo.png" alt="Logo" style="height: 40px;">
-    <h1 style="margin: 0;">Bienvenue sur mon site !</h1>
-  </div>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="about.html">À propos</a>
-  </nav>
-</header>
-
+  <header>
+    <h1>Plugins Minecraft par Lamdis</h1>
+    <nav>
+      <a href="#plugins">Plugins</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
   <main>
-    <h2>À propos</h2>
-    <p>Je suis passionné par la création de sites web, les plugins Minecraft et la technologie en général.</p>
+    <section id="plugins">
+      <h2>Liste des Plugins</h2>
+      <div class="plugin-list">
+        <div class="plugin-card">
+          <img src="images/plugin1.png" alt="Aperçu Plugin 1">
+          <h3>Nom du Plugin</h3>
+          <p>Une courte description de ce que fait ce plugin.</p>
+          <p><strong>Version :</strong> 1.0 | <strong>Minecraft :</strong> 1.20</p>
+          <a href="downloads/plugin1.zip" class="download-btn">Télécharger</a>
+        </div>
+        <!-- Répétez pour chaque plugin -->
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Comment installer un plugin ?</summary>
+        <p>Placez le fichier .jar dans le dossier <code>plugins</code> de votre serveur Minecraft, puis redémarrez-le.</p>
+      </details>
+      <!-- Ajoutez d’autres questions ici -->
+    </section>
+
+    <section id="contact">
+      <h2>Contact & Feedback</h2>
+      <form>
+        <label for="email">Votre email :</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Votre message :</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </section>
   </main>
 
   <footer>
-    &copy; 2025 – Mon Site Perso
+    <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
   </footer>
 </body>
 </html>
