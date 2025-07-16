@@ -3,58 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plugins Minecraft par Lamdis</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+  <title>Lamdis Plugins Minecraft</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Plugins Minecraft par Lamdis</h1>
-    <nav>
-      <a href="#plugins">Plugins</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="container">
+      <h1>Lamdis Plugins</h1>
+      <nav>
+        <a href="#plugins">Plugins</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
-
+  <section class="hero">
+    <div class="container">
+      <h2>Des plugins Minecraft uniques et gratuits</h2>
+      <p>Améliore ton serveur avec mes créations prêtes à l’emploi !</p>
+      <a href="#plugins" class="cta">Voir les plugins</a>
+    </div>
+  </section>
   <main>
-    <section id="plugins">
-      <h2>Liste des Plugins</h2>
+    <section id="plugins" class="plugins">
+      <h2>Plugins disponibles</h2>
       <div class="plugin-list">
         <div class="plugin-card">
           <img src="images/plugin1.png" alt="Aperçu Plugin 1">
           <h3>Nom du Plugin</h3>
-          <p>Une courte description de ce que fait ce plugin.</p>
-          <p><strong>Version :</strong> 1.0 | <strong>Minecraft :</strong> 1.20</p>
+          <p>Court descriptif du plugin et ses fonctionnalités principales.</p>
+          <span class="tag">Minecraft 1.20</span>
           <a href="downloads/plugin1.zip" class="download-btn">Télécharger</a>
         </div>
-        <!-- Répétez pour chaque plugin -->
+        <!-- Duplique la carte pour chaque plugin -->
       </div>
     </section>
-
-    <section id="faq">
+    <section id="faq" class="faq">
       <h2>FAQ</h2>
       <details>
         <summary>Comment installer un plugin ?</summary>
-        <p>Placez le fichier .jar dans le dossier <code>plugins</code> de votre serveur Minecraft, puis redémarrez-le.</p>
+        <p>Place le fichier <code>.jar</code> dans le dossier <code>plugins</code> de ton serveur, puis redémarre-le.</p>
       </details>
-      <!-- Ajoutez d’autres questions ici -->
+      <!-- Ajoute d’autres questions au besoin -->
     </section>
-
-    <section id="contact">
-      <h2>Contact & Feedback</h2>
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
       <form>
-        <label for="email">Votre email :</label>
-        <input type="email" id="email" name="email" required>
-        <label for="message">Votre message :</label>
-        <textarea id="message" name="message" required></textarea>
+        <input type="email" placeholder="Ton email" required>
+        <textarea placeholder="Ton message" required></textarea>
         <button type="submit">Envoyer</button>
       </form>
     </section>
   </main>
-
   <footer>
-    <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
+    <div class="container">
+      <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
+    </div>
   </footer>
 </body>
 </html>
