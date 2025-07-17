@@ -31,34 +31,35 @@
       <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
     </div>
   </footer>
-  <script>
-    fetch('projects.json')
-      .then(response => response.json())
-      .then(projects => {
-        const container = document.getElementById('project-list');
-        if(projects.length === 0) {
-          container.innerHTML = "<p>Aucun projet pour le moment.</p>";
-          return;
-        }
-        projects.forEach(project => {
-          const card = document.createElement('div');
-          card.className = 'project-card';
-          card.innerHTML = `
-            <img src="${project.image}" alt="Image ${project.name}">
-            <div class="project-info">
-              <h3>${project.name}</h3>
-              <p>${project.description}</p>
-              <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
-              <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
-              <a href="${project.download}" class="download-btn">Télécharger</a>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      })
-      .catch(() => {
-        document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
-      });
-  </script>
+<script>
+fetch('projects.json')
+  .then(response => response.json())
+  .then(projects => {
+    const container = document.getElementById('project-list');
+    if(projects.length === 0) {
+      container.innerHTML = "<p>Aucun projet pour le moment.</p>";
+      return;
+    }
+    projects.forEach(project => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <img src="${project.image}" alt="Image ${project.name}">
+        <div class="project-info">
+          <h3>${project.name}</h3>
+          <p>${project.description}</p>
+          <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+          <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+          <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
+          <a href="${project.download}" class="download-btn">Télécharger</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(() => {
+    document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
+  });
+</script>
 </body>
 </html>
