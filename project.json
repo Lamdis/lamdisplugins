@@ -2,21 +2,21 @@
   {
     "type": "plugin",
     "author": "lamdis",
-    "name": "SuperPlugin",
+    "name": "POG",
     "description": "Un plugin ultra cool pour Minecraft.",
-    "version": "1.0",
+    "version": "2.5.0",
     "mcversion": "1.20",
-    "image": "projects/plugins/lamdis/SuperPlugin/cover.png",
-    "download": "projects/plugins/lamdis/SuperPlugin/SuperPlugin.zip"
+    "image": "projects/plugins/lamdis/POG/POG.png",
+    "download": "projects/plugins/lamdis/POG/POG-2.5.0.jar"
   },
   {
-    "type": "datapack",
-    "author": "otheruser",
-    "name": "MegaDatapack",
-    "description": "Un datapack qui change tout.",
-    "version": "2.3",
+    "type": "mod",
+    "author": "lamdis_test",
+    "name": "POG",
+    "description": "Un version mod du plugin POG.",
+    "version": "1.1.1",
     "mcversion": "1.21",
-    "image": "projects/datapacks/otheruser/MegaDatapack/cover.png",
-    "download": "projects/datapacks/otheruser/MegaDatapack/MegaDatapack.zip"
+    "image": "projects/mod/lamdis_test/POG/POG-mod.png",
+    "download": "projects/mod/lamdis_test/POG/POG-1.1.1.jar"
   }
 ]
