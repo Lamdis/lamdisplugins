@@ -3,38 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ | Lamdis Plugins</title>
+  <title>FAQ - Lamdis Plugins Minecraft</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <a href="index.html" class="logo-link">
-        <img src="logo.png" alt="Lamdis Logo" class="site-logo">
-      </a>
-      <nav>
-        <a href="index.html#plugins">Plugins</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <header id="header"></header>
   <main>
-    <section class="faq">
+    <section class="container">
       <h2>FAQ</h2>
-      <details>
-        <summary>Comment installer un plugin ?</summary>
-        <p>Place le fichier <code>.jar</code> dans le dossier <code>plugins</code> de ton serveur, puis redémarre-le.</p>
-      </details>
-      <!-- Ajoute d’autres questions au besoin -->
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Comment installer un plugin ?</h3>
+          <p>Télécharge le plugin, place le fichier .jar dans le dossier <b>plugins</b> de ton serveur Minecraft, puis redémarre le serveur.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Les plugins sont-ils gratuits ?</h3>
+          <p>Oui, tous les plugins listés ici sont gratuits et libres d'utilisation !</p>
+        </div>
+        <div class="faq-item">
+          <h3>Sur quelles versions de Minecraft fonctionnent les plugins ?</h3>
+          <p>Chaque plugin indique la version de Minecraft compatible dans sa fiche.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Je veux proposer mon plugin, comment faire ?</h3>
+          <p>Contacte-moi via la page Contact ou ouvre une issue sur GitHub.</p>
+        </div>
+        <!-- Ajoute d'autres questions ici -->
+      </div>
     </section>
   </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
-    </div>
-  </footer>
+  <footer id="footer"></footer>
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer').innerHTML = html);
+  </script>
 </body>
 </html>
