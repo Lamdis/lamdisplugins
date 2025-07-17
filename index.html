@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liste des Projets Minecraft</title>
+  <title>Lamdis Plugins Minecraft</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/logo.png">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -37,19 +36,28 @@
       .then(response => response.json())
       .then(projects => {
         const container = document.getElementById('project-list');
+        if(projects.length === 0) {
+          container.innerHTML = "<p>Aucun projet pour le moment.</p>";
+          return;
+        }
         projects.forEach(project => {
           const card = document.createElement('div');
           card.className = 'project-card';
           card.innerHTML = `
             <img src="${project.image}" alt="Image ${project.name}">
-            <h3>${project.name}</h3>
-            <p>${project.description}</p>
-            <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
-            <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
-            <a href="${project.download}" class="download-btn">Télécharger</a>
+            <div class="project-info">
+              <h3>${project.name}</h3>
+              <p>${project.description}</p>
+              <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+              <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+              <a href="${project.download}" class="download-btn">Télécharger</a>
+            </div>
           `;
           container.appendChild(card);
         });
+      })
+      .catch(() => {
+        document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
       });
   </script>
 </body>
