@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lamdis Plugins Minecraft</title>
+  <title>Liste des Projets Minecraft</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
@@ -15,32 +15,16 @@
         <img src="images/logo.png" alt="Lamdis Logo" class="site-logo">
       </a>
       <nav>
-        <a href="#plugins">Plugins</a>
+        <a href="#projets">Projets</a>
         <a href="faq.html">FAQ</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
-  <section class="hero">
-    <div class="container">
-      <h2>Des plugins Minecraft uniques et gratuits</h2>
-      <p>Améliore ton serveur avec mes créations prêtes à l’emploi !</p>
-      <a href="#plugins" class="cta">Voir les plugins</a>
-    </div>
-  </section>
   <main>
-    <section id="plugins" class="plugins">
-      <h2>Plugins disponibles</h2>
-      <div class="plugin-list">
-        <div class="plugin-card">
-          <img src="images/plugin1.png" alt="Aperçu Plugin 1">
-          <h3>Nom du Plugin</h3>
-          <p>Court descriptif du plugin et ses fonctionnalités principales.</p>
-          <span class="tag">Minecraft 1.20</span>
-          <a href="downloads/plugin1.zip" class="download-btn">Télécharger</a>
-        </div>
-        <!-- Duplique la carte pour chaque plugin -->
-      </div>
+    <section id="projets" class="projets">
+      <h2>Projets Minecraft</h2>
+      <div id="project-list" class="project-list"></div>
     </section>
   </main>
   <footer>
@@ -48,5 +32,25 @@
       <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
     </div>
   </footer>
+  <script>
+    fetch('projects.json')
+      .then(response => response.json())
+      .then(projects => {
+        const container = document.getElementById('project-list');
+        projects.forEach(project => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+            <img src="${project.image}" alt="Image ${project.name}">
+            <h3>${project.name}</h3>
+            <p>${project.description}</p>
+            <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+            <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+            <a href="${project.download}" class="download-btn">Télécharger</a>
+          `;
+          container.appendChild(card);
+        });
+      });
+  </script>
 </body>
 </html>
