@@ -6,60 +6,55 @@
   <title>Lamdis Plugins Minecraft</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <a href="index.html" class="logo-link">
-        <img src="images/logo.png" alt="Lamdis Logo" class="site-logo">
-      </a>
-      <nav>
-        <a href="#projets">Projets</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <header id="header"></header>
   <main>
     <section id="projets" class="projets">
       <h2>Projets Minecraft</h2>
       <div id="project-list" class="project-list"></div>
     </section>
   </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
-    </div>
-  </footer>
-<script>
-fetch('projects.json')
-  .then(response => response.json())
-  .then(projects => {
-    const container = document.getElementById('project-list');
-    if(projects.length === 0) {
-      container.innerHTML = "<p>Aucun projet pour le moment.</p>";
-      return;
-    }
-    projects.forEach(project => {
-      const card = document.createElement('div');
-      card.className = 'project-card';
-      card.innerHTML = `
-        <img src="${project.image}" alt="Image ${project.name}">
-        <div class="project-info">
-          <h3>${project.name}</h3>
-          <p>${project.description}</p>
-          <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
-          <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
-          <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
-          <a href="${project.download}" class="download-btn">Télécharger</a>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  })
-  .catch(() => {
-    document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
-  });
-</script>
+  <footer id="footer"></footer>
+  <script>
+    // Inclure le header et le footer sur toutes les pages
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer').innerHTML = html);
+
+    // Générer la liste des projets
+    fetch('projects.json')
+      .then(response => response.json())
+      .then(projects => {
+        const container = document.getElementById('project-list');
+        if(projects.length === 0) {
+          container.innerHTML = "<p>Aucun projet pour le moment.</p>";
+          return;
+        }
+        projects.forEach(project => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+            <img src="${project.image}" alt="Image ${project.name}">
+            <div class="project-info">
+              <h3>${project.name}</h3>
+              <p>${project.description}</p>
+              <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+              <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+              <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
+              <a href="${project.download}" class="download-btn">Télécharger</a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(() => {
+        document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
+      });
+  </script>
 </body>
 </html>
