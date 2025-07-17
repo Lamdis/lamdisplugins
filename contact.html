@@ -3,38 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Lamdis Plugins</title>
+  <title>Contact - Lamdis Plugins Minecraft</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <a href="index.html" class="logo-link">
-        <img src="logo.png" alt="Lamdis Logo" class="site-logo">
-      </a>
-      <nav>
-        <a href="index.html#plugins">Plugins</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <header id="header"></header>
   <main>
-    <section class="contact">
+    <section class="container">
       <h2>Contact</h2>
-      <form>
-        <input type="email" placeholder="Ton email" required>
-        <textarea placeholder="Ton message" required></textarea>
-        <button type="submit">Envoyer</button>
-      </form>
+      <div class="contact-box">
+        <p>Tu veux proposer un plugin, signaler un bug, ou juste discuter ?</p>
+        <ul>
+          <li>Par mail : <b>lamdis.plugins@gmail.com</b></li>
+          <li>Sur GitHub : <a href="https://github.com/Lamdis/lamdisplugins/issues" target="_blank">Ouvrir une issue</a></li>
+          <li>Ou via Discord : <b>Lamdis#1234</b></li>
+        </ul>
+      </div>
+      <!-- Tu peux ajouter un formulaire ici si tu veux -->
     </section>
   </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Lamdis. Tous droits réservés.</p>
-    </div>
-  </footer>
+  <footer id="footer"></footer>
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer').innerHTML = html);
+  </script>
 </body>
 </html>
