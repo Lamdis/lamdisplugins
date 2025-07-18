@@ -18,7 +18,7 @@
   </main>
   <footer id="footer"></footer>
   <script>
-    // Inclure header et footer dynamiquement
+    // Inclusion du header et du footer
     fetch('header.html')
       .then(res => res.text())
       .then(html => document.getElementById('header').innerHTML = html);
@@ -31,15 +31,36 @@
       .then(response => response.json())
       .then(projects => {
         const container = document.getElementById('project-list');
-        if(projects.length === 0) {
+        if(!Array.isArray(projects) || projects.length === 0) {
           container.innerHTML = "<p>Aucun projet pour le moment.</p>";
           return;
         }
         projects.forEach(project => {
           // Correction du dossier pour le logo : "plugins", "mods", etc. (toujours au pluriel)
           let typeFolder = project.type;
+          // Si le type ne finit pas par "s", on ajoute "s"
           if (!typeFolder.endsWith('s')) typeFolder += 's';
           const logoPath = `projects/${typeFolder}/${project.author}/${project.name}/logo.png`;
 
           const card = document.createElement('div');
-          card.className
+          card.className = 'project-card';
+          card.innerHTML = `
+            <img src="${logoPath}" alt="Logo ${project.name}" class="project-logo" onerror="this.src='images/logo.png';this.alt='Logo non trouvé';">
+            <div class="project-info">
+              <h3>${project.name}</h3>
+              <p>${project.description || ""}</p>
+              <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+              <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+              <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
+              <a href="${project.download}" class="download-btn">Télécharger</a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(() => {
+        document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
+      });
+  </script>
+</body>
+</html>
