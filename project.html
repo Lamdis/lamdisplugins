@@ -8,8 +8,9 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
   <style>
+    /* ... (styles identiques à la version précédente, voir message plus haut) ... */
     .project-page {
-      max-width: 700px;
+      max-width: 850px;
       margin: 3em auto;
       background: #21213a;
       border-radius: 18px;
@@ -48,7 +49,7 @@
       margin-bottom: 1em;
       text-align: center;
     }
-    .project-desc {
+    .project-desc-html {
       background: #232340;
       border-radius: 10px;
       padding: 1.3em;
@@ -58,9 +59,9 @@
       box-shadow: 0 1px 6px #0002;
       min-height: 80px;
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       text-align: left;
-      white-space: pre-line;
+      overflow-x: auto;
     }
     .project-actions {
       display: flex;
@@ -100,7 +101,7 @@
       .project-page {
         padding: 1em 0.3em;
       }
-      .project-desc {
+      .project-desc-html {
         max-width: 99vw;
       }
     }
@@ -129,6 +130,28 @@
       return params;
     }
 
+    // Parse description.txt style markdown to HTML
+    function parseDescTxt(txt, basePath) {
+      // Liens [texte](url)
+      txt = txt.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      // Images [img](chemin) et ![alt](chemin)
+      txt = txt.replace(/\[img\]\(([^\)]+)\)/g, (_, img) => `<img src="${basePath}/${img.trim()}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
+      txt = txt.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_, alt, img) => `<img src="${basePath}/${img.trim()}" alt="${alt}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
+      // Listes numérotées
+      txt = txt.replace(/(^|\n)(\d+\..*(\n\d+\..*)+)/g, m => {
+        return '<ol>' + m.replace(/\d+\.\s*(.*)/g, '<li>$1</li>').replace(/^\n/, '') + '</ol>';
+      });
+      // Listes à puce
+      txt = txt.replace(/(^|\n)(-\s.*(\n-\s.*)+)/g, m => {
+        return '<ul>' + m.replace(/-\s*(.*)/g, '<li>$1</li>').replace(/^\n/, '') + '</ul>';
+      });
+      // Sauts de ligne
+      txt = txt.replace(/\n{2,}/g, '<br><br>');
+      // Sauts de ligne simples
+      txt = txt.replace(/\n/g, '<br>');
+      return txt;
+    }
+
     async function loadProject() {
       const params = getQueryParams();
       const details = document.getElementById('project-details');
@@ -146,22 +169,19 @@
           details.innerHTML = "<div class='project-page'><p>Projet introuvable.</p></div>";
           return;
         }
-
-        // Détermine le chemin du logo
         const logoPath = `projects/${project.type}/${project.author}/${project.name}/logo.png`;
-        // Détermine le chemin de la description
-        const descPath = `projects/${project.type}/${project.author}/${project.name}/description.txt`;
+        const descTxtPath = `projects/${project.type}/${project.author}/${project.name}/description.txt`;
+        const descBasePath = `projects/${project.type}/${project.author}/${project.name}`;
 
-        // Charge la description
-        let description = "Pas de description disponible.";
+        // Charge la description TXT
+        let descHtml = "<p>Pas de documentation détaillée pour ce projet.</p>";
         try {
-          const descRes = await fetch(descPath);
+          const descRes = await fetch(descTxtPath);
           if (descRes.ok) {
-            description = await descRes.text();
+            const txt = await descRes.text();
+            descHtml = parseDescTxt(txt, descBasePath);
           }
-        } catch (e) {
-          // Garde la description par défaut si erreur
-        }
+        } catch (e) {}
 
         details.innerHTML = `
           <div class="project-page">
@@ -173,12 +193,13 @@
               <span><b>Version :</b> ${project.version}</span> | 
               <span><b>Minecraft :</b> ${project.mcversion}</span>
             </div>
-            <div class="project-desc">${description}</div>
+            <div class="project-desc-html">${descHtml}</div>
             <div class="project-actions">
               <a href="${project.download}" class="download-btn">Télécharger</a>
               <a href="index.html#projets" class="back-btn">← Retour à la liste</a>
             </div>
-          </div>`;
+          </div>
+        `;
       } catch(e) {
         details.innerHTML = "<div class='project-page'><p>Impossible de charger le projet.</p></div>";
       }
