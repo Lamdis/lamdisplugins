@@ -8,7 +8,6 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
   <style>
-    /* ... (styles identiques à la version précédente, voir message plus haut) ... */
     .project-page {
       max-width: 850px;
       margin: 3em auto;
@@ -130,13 +129,13 @@
       return params;
     }
 
-    // Parse description.txt style markdown to HTML
+    // Parse description.txt markdown-like to HTML
     function parseDescTxt(txt, basePath) {
+      // Images [img](chemin) et ![alt](chemin)
+      txt = txt.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_, alt, img) => `<img src="${basePath}/${img.trim()}" alt="${alt}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
+      txt = txt.replace(/\[img\]\(([^\)]+)\)/g, (_, img) => `<img src="${basePath}/${img.trim()}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
       // Liens [texte](url)
       txt = txt.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-      // Images [img](chemin) et ![alt](chemin)
-      txt = txt.replace(/\[img\]\(([^\)]+)\)/g, (_, img) => `<img src="${basePath}/${img.trim()}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
-      txt = txt.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_, alt, img) => `<img src="${basePath}/${img.trim()}" alt="${alt}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
       // Listes numérotées
       txt = txt.replace(/(^|\n)(\d+\..*(\n\d+\..*)+)/g, m => {
         return '<ol>' + m.replace(/\d+\.\s*(.*)/g, '<li>$1</li>').replace(/^\n/, '') + '</ol>';
@@ -145,6 +144,9 @@
       txt = txt.replace(/(^|\n)(-\s.*(\n-\s.*)+)/g, m => {
         return '<ul>' + m.replace(/-\s*(.*)/g, '<li>$1</li>').replace(/^\n/, '') + '</ul>';
       });
+      // Titres markdown style # ou ##
+      txt = txt.replace(/^\s*#\s*(.*)$/gm, '<h2>$1</h2>');
+      txt = txt.replace(/^\s*##\s*(.*)$/gm, '<h3>$1</h3>');
       // Sauts de ligne
       txt = txt.replace(/\n{2,}/g, '<br><br>');
       // Sauts de ligne simples
@@ -159,6 +161,7 @@
 
       try {
         const response = await fetch('projects.json');
+        if (!response.ok) throw new Error('projects.json introuvable');
         const projects = await response.json();
         const project = projects.find(p =>
           p.type === params.type &&
@@ -180,12 +183,16 @@
           if (descRes.ok) {
             const txt = await descRes.text();
             descHtml = parseDescTxt(txt, descBasePath);
+          } else {
+            descHtml = "<p>Fichier description.txt introuvable dans le dossier du projet.</p>";
           }
-        } catch (e) {}
+        } catch (e) {
+          descHtml = "<p>Erreur de chargement de la description.</p>";
+        }
 
         details.innerHTML = `
           <div class="project-page">
-            <img class="project-logo" src="${logoPath}" alt="Logo ${project.name}" onerror="this.src='images/logo.png'">
+            <img class="project-logo" src="${logoPath}" alt="Logo ${project.name}" onerror="this.src='images/logo.png';this.alt='Logo non trouvé';">
             <div class="project-title">${project.name}</div>
             <div class="project-meta">
               <span><b>Type :</b> ${project.type}</span> | 
@@ -201,7 +208,7 @@
           </div>
         `;
       } catch(e) {
-        details.innerHTML = "<div class='project-page'><p>Impossible de charger le projet.</p></div>";
+        details.innerHTML = "<div class='project-page'><p>Impossible de charger le projet.<br>" + e + "</p></div>";
       }
     }
 
