@@ -1,60 +1,36 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lamdis Plugins Minecraft</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="images/logo.png">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header id="header"></header>
-  <main>
-    <section id="projets" class="projets">
-      <h2>Projets Minecraft</h2>
-      <div id="project-list" class="project-list"></div>
-    </section>
-  </main>
-  <footer id="footer"></footer>
-  <script>
-    // Inclure le header et le footer sur toutes les pages
-    fetch('header.html')
-      .then(res => res.text())
-      .then(html => document.getElementById('header').innerHTML = html);
-    fetch('footer.html')
-      .then(res => res.text())
-      .then(html => document.getElementById('footer').innerHTML = html);
+<script>
+fetch('projects.json')
+  .then(response => response.json())
+  .then(projects => {
+    const container = document.getElementById('project-list');
+    if(projects.length === 0) {
+      container.innerHTML = "<p>Aucun projet pour le moment.</p>";
+      return;
+    }
+    projects.forEach(project => {
+      // Correction du chemin du logo
+      // On ajoute un 's' à la fin du type pour correspondre à l'arborescence réelle
+      let typeFolder = project.type;
+      if (!typeFolder.endsWith('s')) typeFolder += 's';
+      const logoPath = `projects/${typeFolder}/${project.author}/${project.name}/logo.png`;
 
-    // Générer la liste des projets
-    fetch('projects.json')
-      .then(response => response.json())
-      .then(projects => {
-        const container = document.getElementById('project-list');
-        if(projects.length === 0) {
-          container.innerHTML = "<p>Aucun projet pour le moment.</p>";
-          return;
-        }
-        projects.forEach(project => {
-          const card = document.createElement('div');
-          card.className = 'project-card';
-          card.innerHTML = `
-            <img src="${project.image}" alt="Image ${project.name}">
-            <div class="project-info">
-              <h3>${project.name}</h3>
-              <p>${project.description}</p>
-              <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
-              <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
-              <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
-              <a href="${project.download}" class="download-btn">Télécharger</a>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-      })
-      .catch(() => {
-        document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
-      });
-  </script>
-</body>
-</html>
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <img src="${logoPath}" alt="Logo ${project.name}" onerror="this.src='images/logo.png';this.alt='Logo non trouvé';">
+        <div class="project-info">
+          <h3>${project.name}</h3>
+          <p>${project.description}</p>
+          <p><strong>Type :</strong> ${project.type} | <strong>Créateur :</strong> ${project.author}</p>
+          <p><strong>Version :</strong> ${project.version} | <strong>Minecraft :</strong> ${project.mcversion}</p>
+          <a href="project.html?type=${project.type}&author=${project.author}&name=${encodeURIComponent(project.name)}" class="details-btn">Voir le projet</a>
+          <a href="${project.download}" class="download-btn">Télécharger</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(() => {
+    document.getElementById('project-list').innerHTML = "<p>Impossible de charger les projets.</p>";
+  });
+</script>
