@@ -6,7 +6,7 @@
     "description": "Un plugin ultra cool pour Minecraft.",
     "version": "2.5.0",
     "mcversion": "1.16",
-    "download": "projects/plugins/lamdis/POG/versions/POG-2.5.0.jar"
+    "download": "projects/plugin/lamdis/POG/versions/POG-2.5.0.jar"
   },
   {
     "type": "mod",
@@ -24,6 +24,6 @@
     "description": "Fusionne les resource des Plugins",
     "version": "1.1",
     "mcversion": "1.20",
-    "download": "projects/plugins/lamdis/Packer/versions/Packer-1.1.jar"
+    "download": "projects/plugin/lamdis/Packer/versions/Packer-1.1.jar"
   }
 ]
