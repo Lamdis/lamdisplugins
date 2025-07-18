@@ -8,102 +8,19 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css?family=Nunito:700,400&display=swap" rel="stylesheet">
   <style>
-    .project-page {
-      max-width: 850px;
-      margin: 3em auto;
-      background: #21213a;
-      border-radius: 18px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-      padding: 2.5em 2em 2em 2em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      animation: fadeIn 0.8s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px);}
-      to   { opacity: 1; transform: translateY(0);}
-    }
-    .project-logo {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px #0006;
-      background: #181821;
-      margin-bottom: 1em;
-    }
-    .project-title {
-      font-size: 2.2em;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ffd700 40%, #f6f6f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5em;
-      text-align: center;
-    }
-    .project-meta {
-      color: #ffd700;
-      margin-bottom: 1em;
-      text-align: center;
-    }
-    .project-desc-html {
-      background: #232340;
-      border-radius: 10px;
-      padding: 1.3em;
-      color: #f6f6f6;
-      font-size: 1.15em;
-      margin-bottom: 2em;
-      box-shadow: 0 1px 6px #0002;
-      min-height: 80px;
-      width: 100%;
-      max-width: 700px;
-      text-align: left;
-      overflow-x: auto;
-    }
-    .project-actions {
-      display: flex;
-      gap: 1em;
-      margin-bottom: 1em;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .download-btn, .back-btn {
-      font-weight: 700;
-      padding: 0.7em 2em;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 9px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      box-shadow: 0 2px 8px #0003;
-    }
-    .download-btn {
-      background: #ffd700;
-      color: #232340;
-    }
-    .download-btn:hover {
-      background: #ffe066;
-    }
-    .back-btn {
-      background: transparent;
-      color: #ffd700;
-      border: 2px solid #ffd700;
-    }
-    .back-btn:hover {
-      background: #ffd700;
-      color: #232340;
-    }
-    @media (max-width: 700px) {
-      .project-page {
-        padding: 1em 0.3em;
-      }
-      .project-desc-html {
-        max-width: 99vw;
-      }
-    }
+    .project-page { max-width: 850px; margin: 3em auto; background: #21213a; border-radius: 18px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); padding: 2.5em 2em 2em 2em; display: flex; flex-direction: column; align-items: center; position: relative; animation: fadeIn 0.8s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(40px);} to   { opacity: 1; transform: translateY(0);} }
+    .project-logo { width: 140px; height: 140px; object-fit: contain; border-radius: 16px; box-shadow: 0 2px 12px #0006; background: #181821; margin-bottom: 1em; }
+    .project-title { font-size: 2.2em; font-weight: 800; background: linear-gradient(90deg, #ffd700 40%, #f6f6f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5em; text-align: center; }
+    .project-meta { color: #ffd700; margin-bottom: 1em; text-align: center; }
+    .project-desc-html { background: #232340; border-radius: 10px; padding: 1.3em; color: #f6f6f6; font-size: 1.15em; margin-bottom: 2em; box-shadow: 0 1px 6px #0002; min-height: 80px; width: 100%; max-width: 700px; text-align: left; overflow-x: auto; }
+    .project-actions { display: flex; gap: 1em; margin-bottom: 1em; flex-wrap: wrap; justify-content: center; }
+    .download-btn, .back-btn { font-weight: 700; padding: 0.7em 2em; font-size: 1.1em; border: none; border-radius: 9px; text-decoration: none; cursor: pointer; transition: background 0.2s, color 0.2s; box-shadow: 0 2px 8px #0003; }
+    .download-btn { background: #ffd700; color: #232340; }
+    .download-btn:hover { background: #ffe066; }
+    .back-btn { background: transparent; color: #ffd700; border: 2px solid #ffd700; }
+    .back-btn:hover { background: #ffd700; color: #232340; }
+    @media (max-width: 700px) { .project-page { padding: 1em 0.3em; } .project-desc-html { max-width: 99vw; } }
   </style>
 </head>
 <body>
@@ -129,7 +46,6 @@
       return params;
     }
 
-    // Parse description.txt markdown-like to HTML
     function parseDescTxt(txt, basePath) {
       // Images [img](chemin) et ![alt](chemin)
       txt = txt.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_, alt, img) => `<img src="${basePath}/${img.trim()}" alt="${alt}" style="max-width:100%;border-radius:10px;margin:1em 0;">`);
@@ -172,9 +88,12 @@
           details.innerHTML = "<div class='project-page'><p>Projet introuvable.</p></div>";
           return;
         }
-        const logoPath = `projects/${project.type}/${project.author}/${project.name}/logo.png`;
-        const descTxtPath = `projects/${project.type}/${project.author}/${project.name}/description.txt`;
-        const descBasePath = `projects/${project.type}/${project.author}/${project.name}`;
+        // On ajoute le "s" au type pour le dossier
+        let typeFolder = project.type;
+        if (!typeFolder.endsWith('s')) typeFolder += 's';
+        const logoPath = `projects/${typeFolder}/${project.author}/${project.name}/logo.png`;
+        const descTxtPath = `projects/${typeFolder}/${project.author}/${project.name}/description.txt`;
+        const descBasePath = `projects/${typeFolder}/${project.author}/${project.name}`;
 
         // Charge la description TXT
         let descHtml = "<p>Pas de documentation détaillée pour ce projet.</p>";
