@@ -1,0 +1,13 @@
+SuperPlugin ajoute plein de trucs cool à Minecraft !
+
+Voici la [documentation complète](https://exemple.com/doc).
+
+Et voici une image du plugin :
+[img](cover.png)
+
+Pour installer :
+1. Télécharge le plugin
+2. Place-le dans le dossier plugins
+3. Redémarre le serveur
+
+Tu peux aussi télécharger sur [CurseForge](https://www.curseforge.com/minecraft/bukkit-plugins/packer)
